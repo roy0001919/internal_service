@@ -1,0 +1,32 @@
+version: "3.3"
+
+
+services:
+
+    eforminternal:
+        build: ./eforminternal
+        container_name: eforminternal
+        restart: always
+        #    volumes:api_data:/api/static
+        command: uwsgi --ini uwsgi.ini
+        expose:
+            - 8000
+
+    cofrom:
+        build: ./COform
+        container_name: coform
+        restart: always
+        environment: 
+            - APP_NAME=MyFlaskApp
+        expose:
+            - 8080
+
+    nginx:
+        build: ./Nginx
+        container_name: nginx
+        restart: always
+        ports:
+            ["80:80"]
+
+
+            # if exist "C:\anaconda\condabin\conda_hook.bat" "C:\anaconda\condabin\conda_hook.bat"

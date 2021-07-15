@@ -1,0 +1,560 @@
+{% extends "myweb/base.html" %}
+
+{% block content %}
+{% load static %}
+<head>
+    <link rel="stylesheet" href="{% static 'css/reference/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/reference/fontawesome/css/all.css' %}">
+    <link rel="stylesheet" href="{% static 'css/search.css' %}">
+    <link rel="stylesheet" media="print" type="text/css" href="{% static 'css/print_search.css' %}">
+</head>
+<section class="page search noPrint" id="Search">
+
+    <header class="pageNavBar noPrint">
+        <!-- <a href="{% url "eform:daily" %}">
+            <div class="pageNavBar_item button" data-id="search_daily">每日必填</div>
+        </a> -->
+        <a href="{% url "eform:mailOrder" %}">
+            <div class="pageNavBar_item button active" data-id="search_coform" data-name="mailorder">郵購單</div>
+        </a>
+        <a href="{% url "eform:cashPymt" %}">
+            <div class="pageNavBar_item button" data-id="search_cashpymt" data-name="cashpymt">現金匯款單</div>
+        </a>
+    </header>
+    <div class="block condition_block noPrint">
+        <h1 class="title">請選擇搜尋條件</h1>
+        <form class="search_coform search_main" method="POST">
+            <label class="search_item">
+                <input type="checkbox" name="selection1" class="condition" id="Coform_store" data-name="store_name">
+                <div class="search_item_main">
+                    <h4>分店名稱</h4>
+                    <div class="search_item_main_value">
+                        <div class="selectBox">
+                            <i class="fas fa-angle-down"></i>
+                            <select name="store_name" class="block_form_item_select storeList checkedValueBox condition_value" id="storeList" disabled="disabled">
+                                <option value="CA">CA / 南京店</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="search_item_bgc"></div>
+            </label>
+            <label class="search_item">
+                <input type="checkbox" name="selection2" class="condition" id="Coform_state" data-name="status">
+                <div class="search_item_main">
+                    <h4>狀態</h4>
+                    <div class="search_item_main_value">
+                        <div class="selectBox">
+                            <i class="fas fa-angle-down"></i>
+                            <select name="status" class="block_form_item_select state checkedValueBox condition_value" disabled="disabled">
+                                <option value="已請款">已請款</option>
+                                <option value="未請款">未請款</option>
+                                <option value="作廢">作廢</option>
+                                <option value="退款">退款</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="search_item_bgc"></div>
+            </label>
+            <label class="search_item search_item_date">
+                <input type="checkbox" name="selection3" class="condition" id="Coform_bankGetCashDate" data-name="bank_req_date"> 
+                <div class="search_item_main">
+                    <h4>銀行請款日期</h4>
+                    <div class="dateBox">
+                        <div class="picker">
+                            <input type="date" name="bank_req_date_from" class="datepicker checkedValueBox condition_value" disabled="disabled">
+                            <i class="far fa-calendar"></i>
+                        </div>
+                        -
+                        <div class="picker">
+                            <input type="date" name="bank_req_date_to" class="datepicker checkedValueBox condition_value" disabled="disabled">
+                            <i class="far fa-calendar"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="search_item_bgc"></div>
+            </label>
+            <label class="search_item search_item_date">
+                <input type="checkbox" name="selection4" class="condition" id="Coform_getCodeDate" data-name="auth_date">
+                <div class="search_item_main">
+                    <h4>取授權日期</h4>
+                    <div class="dateBox">
+                        <div class="picker">
+                            <input type="date" name="auth_date_from" class="datepicker checkedValueBox condition_value" disabled="disabled">
+                            <i class="far fa-calendar"></i>
+                        </div>
+                        -
+                        <div class="picker">
+                            <input type="date" name="auth_date_to" class="datepicker checkedValueBox condition_value" disabled="disabled">
+                            <i class="far fa-calendar"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="search_item_bgc"></div>
+            </label>
+            <label class="search_item search_item_date">
+                <input type="checkbox" name="selection5" class="condition" id="Coform_getCashDate" data-name="req_date">
+                <div class="search_item_main">
+                    <h4>請款日期</h4>
+                    <div class="dateBox">
+                        <div class="picker">
+                            <input type="date" name="req_date_from" class="datepicker checkedValueBox condition_value" disabled="disabled">
+                            <i class="far fa-calendar"></i>
+                        </div>
+                        -
+                        <div class="picker">
+                            <input type="date" name="req_date_to" class="datepicker checkedValueBox condition_value" disabled="disabled">
+                            <i class="far fa-calendar"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="search_item_bgc"></div>
+            </label>
+            <label class="search_item">
+                <input type="checkbox" name="selection6" class="condition" id="Coform_clientName" data-name="cust_name">
+                <div class="search_item_main">
+                    <h4>會員姓名</h4>
+                    <div class="search_item_main_value">
+                        <input type="text" name="cust_name" class="block_form_item_input checkedValueBox condition_value" disabled="disabled">
+                    </div>
+                </div>
+                <div class="search_item_bgc"></div>
+            </label>
+            <p><input type="submit" class="button" value="查詢"></p>
+    {% csrf_token %}
+        </form>
+    </div>
+
+    <div class="block result" id="search_coform" style="display: none;">
+        <div class="tableBlock">
+            <table>
+                <thead>
+                    <tr>
+                        <th id="view">預覽</th>
+                        <th id="status">狀態</th>
+                        <th id="order_id">郵購單號</th>
+                        <th id="store_name">分店名稱</th>
+                        <th id="r_id">紀錄工號</th>
+                        <th id="r_name">紀錄姓名</th>
+                        <th id="auth_code">授權碼</th>
+                        <th id="auth_date">授權日</th>
+                        <th id="req_date">請款日</th>
+                        <th id="bank_req_date">銀行請款日</th>
+                        <th id="card_holder">持卡人姓名</th>
+                        <th id="cust_name">會員姓名</th>
+                        <th id="cust_id">會員編號</th>
+                        <th id="card_num">信用卡卡號</th>
+                        <th id="last3">卡片末三碼</th>
+                        <th id="bank">銀行名稱</th>
+                        <th id="card_exp">信用卡有效期限</th>
+                        <th id="payway">付款方式</th>
+                        <th id="amount">總金額</th>
+                        <th id="mod_date">修改日期</th>
+                        <th id="mod_r_id">修改工號</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+
+        <div class="buttons">
+            <button class="button" id="Save">儲存更新</button>
+            <button class="button" id="Export">匯出 Excel</button>
+        </div>
+    </div>
+</section>
+
+<div id="alertViewcoform">
+    <div class="alertBg"></div>
+    <div class="alertMain">
+        <div class="block coform_view" id="coform_view">
+            <form action="#" method="POST" id="form2">
+                <div class="demo container">
+                    <header>
+                        <div class="row">
+                            <div class="col-lg-2 col-md-2 col-sm-2">
+                                <div class="logo"><img src="{% static 'img/logo.jpg' %}"></div>
+                            </div>
+                            <div class="col-lg-7 col-md-7 col-sm-7">
+                                <div class="title CA store2">
+                                    <h2><span class="text_u">斯曼特企業股份有限公司</span><br><small>信用卡郵購訂購單</small></h2>
+                                </div>
+                                <div class="title CB store2" style="display: none;">
+                                    <h2><span class="text_u">斯曼特企業股份有限公司</span><br><small>信用卡郵購訂購單</small></h2>
+                                </div>
+                                <div class="title CD store2" style="display: none;">
+                                    <h2><span class="text_u">斯曼特企業股份有限公司</span><br><small>信用卡郵購訂購單</small></h2>
+                                </div>
+                                <div class="title CE store2" style="display: none;">
+                                    <h2><span class="text_u">柏曳企業有限公司</span><br><small>信用卡郵購訂購單</small></h2>
+                                </div>
+                                <div class="title CF store2" style="display: none;">
+                                    <h2><span class="text_u">斯曼特企業股份有限公司</span><br><small>信用卡郵購訂購單</small></h2>
+                                </div>
+                                <div class="title CG store2" style="display: none;">
+                                    <h2><span class="text_u">柏洺企業有限公司</span><br><small>信用卡郵購訂購單</small></h2>
+                                </div>
+                                <div class="title CH store2" style="display: none;">
+                                    <h2><span class="text_u">斯曼特企業股份有限公司</span><br><small>信用卡郵購訂購單</small></h2>
+                                </div>
+                                <div class="title CK store2" style="display: none;">
+                                    <h2><span class="text_u">斯曼特企業股份有限公司</span><br><small>信用卡郵購訂購單</small></h2>
+                                </div>
+                                <div class="title CL store2" style="display: none;">
+                                    <h2><span class="text_u">斯曼特企業股份有限公司</span><br><small>信用卡郵購訂購單</small></h2>
+                                </div>
+                                <div class="title BA store2" style="display: none;">
+                                    <h2><span class="text_u">斯曼特企業股份有限公司</span><br><small>信用卡郵購訂購單</small></h2>
+                                </div>
+                                <div class="title BB store2" style="display: none;">
+                                    <h2><span class="text_u">宣至企業有限公司</span><br><small>信用卡郵購訂購單</small></h2>
+                                </div>
+                                <div class="title BC store2" style="display: none;">
+                                    <h2><span class="text_u">斯曼特企業股份有限公司</span><br><small>信用卡郵購訂購單</small></h2>
+                                </div>
+                                <div class="title FA store2" style="display: none;">
+                                    <h2><span class="text_u">旭姤企業有限公司</span><br><small>信用卡郵購訂購單</small></h2>
+                                </div>
+                                <div class="title ID store2" style="display: none;">
+                                    <h2><span class="text_u">斯曼特企業股份有限公司</span><br><small>信用卡郵購訂購單</small></h2>
+                                </div>
+                                <div class="title IE store2" style="display: none;">
+                                    <h2><span class="text_u">斯曼特企業股份有限公司</span><br><small>信用卡郵購訂購單</small></h2>
+                                </div>
+                                <div class="title PB store2" style="display: none;">
+                                    <h2><span class="text_u">斯曼特企業股份有限公司</span><br><small>信用卡郵購訂購單</small></h2>
+                                </div>
+                                <div class="title PC store2" style="display: none;">
+                                    <h2><span class="text_u">斯曼特企業股份有限公司</span><br><small>信用卡郵購訂購單</small></h2>
+                                </div>
+                                <div class="title OA store2" style="display: none;">
+                                    <h2><span class="text_u">斯曼特企業股份有限公司</span><br><small>信用卡郵購訂購單</small></h2>
+                                </div>
+                                <div class="title RA store2" style="display: none;">
+                                    <h2><span class="text_u">亮衣企業有限公司</span><br><small>信用卡郵購訂購單</small></h2>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-3">
+                                <span class="viewText" id="View_order_id"></span>
+                            </div>
+                        </div>
+                        
+                    </header>
+                    <div class="clear"></div>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <h4 class="float_l">分店名稱：</h4>
+                            <span class="viewText" id="View_storeName"></span>
+                        </div>
+                        <div class="print_date col-lg-6 col-md-6 col-sm-6">
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <h4 class="auth_date">取授權日期：</h4>
+                                <span class="viewText" id="View_auth_date"></span>
+                            </div>
+                            <div class="print_date_inside col-lg-12 col-md-12 col-sm-12">
+                                <h4 class="req_date">請款日期：</h4>
+                                <span class="viewText" id="View_req_date"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-4 col-md-4 col-sm-4">
+                            <h4>持卡人姓名：</h4>
+                            <span class="viewText" id="View_card_holder"></span>
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-sm-2">
+    
+                            <h4>生日：</h4>
+                            <span class="emptyText"></span>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+    
+                            <h4 class="usCode">身分證字號：</h4>
+                            <span class="emptyText"></span>
+                        </div>
+                    </div>
+    
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12">
+                            <h4>信用卡卡號：</h4>
+                            <span class="viewText" id="View_card_num"></span>
+                            <small>(卡號共16碼)</small>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-4 col-md-4 col-sm-4">
+                            <label for="chkLast3" class="float_l">
+                                <h4>卡片背面末3碼：</h4>
+                            </label>
+                            <span class="viewText" id="View_last3"></span>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 bank">
+                            <h4>銀行名稱：</h4>
+                            <span class="viewText" id="View_bank"></span>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4">
+                            <input class="viewText" id="View_Card_3in1" type="checkbox" value="3in1" readonly>
+                            <h4 class="3in1_h4">三合一卡<small>(取授權即會扣款)</small></h4>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-5 col-md-5 col-sm-5">
+                            <h4>信用卡有效期限：</h4>
+                            <span class="viewText" id="View_card_exp"></span>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <h4>授權碼：</h4>
+                            <span class="viewText" id="View_auth_code"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-5 col-md-5 col-sm-5" id="Phonelight">
+                            <h4>電話：日</h4>
+                            (<span id="View_PhoneLight_1">　　</span>)
+                            <span id="View_PhoneLight_2"></span>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4" id="PhoneNight">
+                            <h4>夜</h4>
+                            (<span id="View_PhoneNight_1">　　</span>)
+                            <span id="View_PhoneNight_2"></span>
+                        </div>
+                    </div>
+    
+                    
+    
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 einvoice_box" id="InvoiceType">
+                            <h4>發票：</h4>
+                            <div class="invoiceType">
+                                <input type="checkbox" id="View_InvoiceType_2" value="二聯式" class="float_l" readonly>
+                                <h4 class="float_l">二聯式</h4>
+                                <span>發票號碼：</span><div class="emptySpan"></div>
+                            </div>                        
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-11 col-md-11 col-sm-11 col-lg-offset-1 col-md-offset-1 col-sm-offset-1">
+                            <input type="checkbox" id="View_InvoiceType_3" value="三聯式" class="float_l" readonly>
+                            <h4 class="float_l">三聯式</h4>
+                            <span>發票號碼：</span><div class="emptySpan"></div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="vatNum col-lg-5 col-md-5 col-sm-5 col-lg-offset-2 col-md-offset-2 col-sm-offset-2">
+                            <span>統一編號：</span><div class="emptySpan"></div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3">
+                            <span>抬頭：</span><div class="emptySpan"></div>
+                        </div>
+                    </div>
+                    <div class="sign_box">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>商品名稱</th>
+                                    <th>合計</th>
+                                    <th>備註</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="table_product">
+                                    <td><span class="viewText" id="View_productName"></span></td>
+                                    <td><span class="viewText" id="View_total"></span></td>
+                                    <td><span class="viewText" id="View_remarks"></span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="sign_main">
+                            <div class="row">
+                                <div class="col-lg-8 col-md-8 col-sm-8">
+                                    <div class="sign_main_l">
+                                        <div class="row">
+    
+                                            <h3 class="float_l">總金額：NT$</h3>
+                                            <h3 class="viewText" id="View_amount"></h3>
+                                        </div>
+                                        <div class="row">
+                                            <div class="star">*</div>
+                                            <h3 class="float_l">持卡人簽名：</h3>
+                                            <p type="text" name="sign_img" id="View_sign_img"></p>
+                                            
+                                        </div>
+                                        (須與信用卡背面簽名一致)
+                                        <h6>◆本人同意且已詳閱並願遵守本商品之相關注意事項之各項規定。</h6>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-4">
+                                    <div class="sign_main_r">
+                                        <placeholder>特約商店戳章</placeholder>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="precautions">
+                        <h4 class="float_n">★注意事項：</h4>
+                        <h5>1.收單機購即華南銀行於本商品買賣中，僅涉及代墊款項之資金關係，且已將商品總金額一次墊付予商品出售人，並未介入商品之交付或商品瑕疵等買賣之實體關係。持卡人使用信用卡進行本商品買賣之交易後，相關出退貨、服務及上述價差之退款或依消費者保護法第十九條規定向商品出售人解除契約者，持卡人應先逕洽商品出售人尋求解決，如無法解決，始得要求就該筆交易以『帳款疑義之處理程序』辦理。2.收單機構並非贈品之贈與人，持卡人不得以未收受商品出售人之贈品為由，而拒付本訂購商品總價金之信用卡帳款。3.持卡人欲以信用卡支付之商品總金額不得高於持卡人之信用卡可使用餘額，亦不得有任何遲繳、欠款、超額、違反信用卡會員約定條款及其他信用貶落之情事。商品出售人及收單機構保留接受本訂購單與否的權利。4.所有商品售價均含
+                            5﹪加值營業稅，上述商品之統一發票由商品出售人開立送交。5.本商品之買賣如屬郵購買賣及訪問買賣之交易者，持卡人享有自收受商品之翌日起七天鑑賞期，如於七天鑑賞期內欲辦理換貨、退貨，請務必保留發票及維護商品完整性，否則恕無法辦理。本人同意將訂購資料交給郵購廠商出貨，並已詳細閱讀注意事項無誤。
+                        </h5>
+                    </div>
+                    <div class="storeDetail">
+                        <!-- 分店資訊 start-->
+                        <div class="CA store">
+                            <h4 class="store_id">◎商店代號：008-27958292-8002</h4>
+                            <h5>特店名稱：斯曼特企業股份有限公司南京分公司</h5>
+                            <h5>特店地址：台北市中山區南京東路二段32號2、3樓</h5>
+                        </div>
+                        <div class="CB store" style="display: none;">
+                            <h4 class="store_id">◎商店代號：008-80683218-8002</h4>
+                            <h5>特店名稱：斯曼特企業股份有限公司南西分公司</h5>
+                            <h5>特店地址：台北市中山區南京西路10號8樓之1</h5>
+                        </div>
+                        <div class="CD store" style="display: none;">
+                            <h4 class="store_id">◎商店代號：008-53933852-8002</h4>
+                            <h5>特店名稱：斯曼特企業股份有限公司忠孝分公司</h5>
+                            <h5>特店地址：台北市大安區忠孝東路四段311號2樓之3</h5>
+                        </div>
+                        <div class="CE store" style="display: none;">
+                            <h4 class="store_id">◎商店代號：008-53939005-8002</h4>
+                            <h5>特店名稱：柏曳企業有限公司</h5>
+                            <h5>特店地址：台北市中正區公園路16號2樓〈3樓〉</h5>
+                        </div>
+                        <div class="CF store" style="display: none;">
+                            <h4 class="store_id">◎商店代號：008-53939005-8002</h4>
+                            <h5>特店名稱：斯曼特企業股份有限公司仁愛分公司</h5>
+                            <h5>特店地址：台北市大安區仁愛路四段122巷51號1樓</h5>
+                        </div>
+                        <div class="CG store" style="display: none;">
+                            <h4 class="store_id">◎商店代號：008-24324325-8002</h4>
+                            <h5>特店名稱：柏洺企業有限公司</h5>
+                            <h5>特店地址：台北市復興北路313巷34號1樓</h5>
+                        </div>
+                        <div class="CH store" style="display: none;">
+                            <h4 class="store_id">◎商店代號：008-53936886-8002</h4>
+                            <h5>特店名稱：斯曼特企業股份有限公司頂好分公司</h5>
+                            <h5>特店地址：台北市大安區忠孝東路四段120號4樓</h5>
+                        </div>
+                        <div class="CK store" style="display: none;">
+                            <h4 class="store_id">◎商店代號：008-53312755-8002</h4>
+                            <h5>特店名稱：斯曼特企業股份有限公司公館分公司</h5>
+                            <h5>特店地址：台北市中正區羅斯福路三段234之1號1-4樓</h5>
+                        </div>
+                        <div class="CL store" style="display: none;">
+                            <h4 class="store_id">◎商店代號：008-54646436-8002</h4>
+                            <h5>特店名稱：斯曼特企業股份有限公司復北分公司</h5>
+                            <h5>特店地址：台北市松山區復興北路325號3樓</h5>
+                        </div>
+                        <div class="BA store" style="display: none;">
+                            <h4 class="store_id">◎商店代號：008-53930433-8002</h4>
+                            <h5>特店名稱：斯曼特企業股份有限公司永和分公司</h5>
+                            <h5>特店地址：新北市永和區竹林路222號5樓</h5>
+                        </div>
+                        <div class="BB store" style="display: none;">
+                            <h4 class="store_id">◎商店代號：008-54010080-8002</h4>
+                            <h5>特店名稱：宣至企業有限公司</h5>
+                            <h5>特店地址：新北市新莊區幸福路743號</h5>
+                        </div>
+                        <div class="BC store" style="display: none;">
+                            <h4 class="store_id">◎商店代號：008-27958286-8002</h4>
+                            <h5>特店名稱：斯曼特企業股份有限公司樹林分公司</h5>
+                            <h5>特店地址：新北市樹林區中山路一段185號1、2樓</h5>
+                        </div>
+                        <div class="FA store" style="display: none;">
+                            <h4 class="store_id">◎商店代號：008-28969212-8002</h4>
+                            <h5>特店名稱：旭姤企業有限公司</h5>
+                            <h5>特店地址：新竹市光復路一段375號1樓</h5>
+                        </div>
+                        <div class="ID store" style="display: none;">
+                            <h4 class="store_id">◎商店代號：008-53931989-8002</h4>
+                            <h5>特店名稱：斯曼特企業股份有限公司忠明分公司</h5>
+                            <h5>特店地址：台中市西區忠明南路361號</h5>
+                        </div>
+                        <div class="IE store" style="display: none;">
+                            <h4 class="store_id">◎商店代號：008-53108016-8002</h4>
+                            <h5>特店名稱：斯曼特企業股份有限公司文心分公司</h5>
+                            <h5>特店地址：台中市西屯區文心路3段358、360號</h5>
+                        </div>
+                        <div class="PB store" style="display: none;">
+                            <h4 class="store_id">◎商店代號：008-27340994-8002</h4>
+                            <h5>特店名稱：斯曼特企業股份有限公司東寧分公司</h5>
+                            <h5>特店地址：台南市東區東寧路207號</h5>
+                        </div>
+                        <div class="PC store" style="display: none;">
+                            <h4 class="store_id">◎商店代號：008-53933902-8002</h4>
+                            <h5>特店名稱：斯曼特企業股份有限公司崇學分公司</h5>
+                            <h5>特店地址：台南市東區崇學路131號1樓</h5>
+                        </div>
+                        <div class="OA store" style="display: none;">
+                            <h4 class="store_id">◎商店代號：008-53933852-8002</h4>
+                            <h5>特店名稱：斯曼特企業股份有限公司永康分公司</h5>
+                            <h5>特店地址：台北市中正區公園路16號2樓〈3樓〉</h5>
+                        </div>
+                        <div class="RA store" style="display: none;">
+                            <h4 class="store_id">◎商店代號：008-53889672-8002</h4>
+                            <h5>特店名稱：亮衣企業有限公司</h5>
+                            <h5>特店地址：高雄市苓雅區三多三路99號1樓〈2樓〉</h5>
+                        </div>
+                        <!-- 分店資訊 end-->
+                        <h5 class="float_l"><span>電話：(02)2719-8885</span></h5>
+                        <h5>傳真：(02)2715-0822</h5>
+                    </div>
+                    <div class="importantText">
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6">
+                                <h4>*本表請保留20個月以保障權益。</h4>
+                            </div>
+                            <div class="col-lg-6 col-md-6">
+                                <h4 class="text_r float_r">華南銀行授權中心電話：0800-069-119<br>(02)8780-6858</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="finalSign">
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-sm-6">
+                                <h4>主管：</h4>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6">
+                                <h4>經手人：</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+    
+            <div class="buttons noPrint">
+                <button class="button noPrint" id="Btn_print">列印</button>
+                <button class="button noPrint" type="none" name="submit_btn" value="clear" id="Btn_cancel">關閉視窗</button>
+            </div>
+    </div>
+    </div>
+</div>
+
+<div id="alert">
+    <div class="alertBg"></div>
+    <div class="alertmain noPrint">
+        <svg width="100" height="100" class="icon">
+            <circle fill="#68E534" cx="50" cy="50" r="45" class="circle" />
+            <polyline fill="none" stroke="#fff" stroke-width="10" points="30,55 45,70 70,35" stroke-linecap="round" stroke-linejoin="round" class="tick" />
+            <g class="fork">
+                <polyline fill="none" stroke="#fff" stroke-width="10" points="35,65 65,35" stroke-linecap="round" />
+                <polyline fill="none" stroke="#fff" stroke-width="10" points="35,35 65,65" stroke-linecap="round" />
+            </g>
+        </svg>
+        <div class="loading"></div>
+        <h3>已送出!</h3>
+        <div class="errorBlock">
+            <h5 class="errorBlock_btn">查看更多 ▼</h5>
+            <span class="errorBlock_text"></span>
+        </div>
+    </div>
+</div>
+
+
+<script src="{% static 'js/reference/jquery.js' %}"></script>
+<script src="{% static 'js/reference/papaparse.min.js' %}"></script>
+<script src="{% static 'js/api.js' %}"></script>
+<script src="{% static 'js/main.js' %}"></script>
+
+
+{% endblock %}

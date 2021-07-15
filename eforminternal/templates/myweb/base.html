@@ -1,0 +1,59 @@
+{% load static %}
+{% if  request.user.is_authenticated %}
+<head>
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+</head>
+<div class="base navbar">
+    <div class="navbar_logo">
+        <img src="{% static 'img/logo.png' %}" at="logo">
+    </div>
+    <div class="navbar_link">
+        <!-- <div class="navbar_link_item">
+            <a href="{% url "eform:tab_daily" %}">每日必填</a>
+        </div> -->
+        <div class="navbar_link_item">
+            <a href="{% url "eform:tab_coform" %}">郵購單</a>
+        </div>
+        <div class="navbar_link_item">
+            <a href="{% url "eform:tab_cashpymt" %}">現金匯款單</a>
+        </div>
+        {% if  request.user.is_superuser %}
+        <div class="navbar_link_item">
+            <a href="{% url "eform:mailOrder" %}">查詢</a>
+        </div>
+        {% endif %}
+        <div class="navbar_link_user">
+            <div class="navbar_link_user_side">
+                <label></label>
+                <p id="navbar_link_userId">{{ request.user.first_name }}</p>
+                <p id="navbar_link_userName">{{ request.user.last_name }}</p>
+            </div>
+            <div class="navbar_link_userControl" style="display: none;">
+                <a href="{% url "eform:logout" %}">登出</a>
+            </div>
+        </div>
+<!--         
+        {% else %}
+        <a href="{% url "eform:login" %}">Login</a>
+        {% endif %} -->
+    </div>
+</div>
+
+<div class="page_background noPrint">
+    <div class="bgc"></div>
+    <img class="noPrint" src="{% static 'img/background.jpg' %}" at="login_background">
+</div>
+
+{% block content %}
+{% endblock %}
+
+
+<script src="{% static 'js/reference/jquery.js' %}"></script>
+
+<script>
+    const $user = $('.navbar .navbar_link_user');
+    $user.on('click', function () {
+        $('.navbar .navbar_link_userControl').toggle();
+    })
+
+</script>

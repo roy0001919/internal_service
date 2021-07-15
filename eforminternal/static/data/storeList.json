@@ -1,0 +1,97 @@
+{
+    "23": {
+        "id": "23",
+        "title": "南京店",
+        "codename": "CA"
+    },
+    "4": {
+        "id": "4",
+        "title": "西華店",
+        "codename": "CG"
+    },
+    "5": {
+        "id": "5",
+        "title": "復北店",
+        "codename": "CL"
+    },
+    "7": {
+        "id": "7",
+        "title": "南西店",
+        "codename": "CB"
+    },
+    "8": {
+        "id": "8",
+        "title": "忠孝店",
+        "codename": "CD"
+    },
+    "9": {
+        "id": "9",
+        "title": "頂好店",
+        "codename": "CH"
+    },
+    "10": {
+        "id": "10",
+        "title": "仁愛店",
+        "codename": "CF"
+    },
+    "11": {
+        "id": "11",
+        "title": "站前店",
+        "codename": "CE"
+    },
+    "12": {
+        "id": "12",
+        "title": "公館店",
+        "codename": "CK"
+    },
+    "13": {
+        "id": "13",
+        "title": "永和店",
+        "codename": "BA"
+    },
+    "14": {
+        "id": "14",
+        "title": "新莊店",
+        "codename": "BB"
+    },
+    "15": {
+        "id": "15",
+        "title": "樹林店",
+        "codename": "BC"
+    },
+    "16": {
+        "id": "16",
+        "title": "光復店",
+        "codename": "FA"
+    },
+    "17": {
+        "id": "17",
+        "title": "忠明店",
+        "codename": "ID"
+    },
+    "18": {
+        "id": "18",
+        "title": "文心店",
+        "codename": "IE"
+    },
+    "19": {
+        "id": "19",
+        "title": "東寧店",
+        "codename": "PB"
+    },
+    "20": {
+        "id": "20",
+        "title": "崇學店",
+        "codename": "PC"
+    },
+    "21": {
+        "id": "21",
+        "title": "永康店",
+        "codename": "OA"
+    },
+    "22": {
+        "id": "22",
+        "title": "三多店",
+        "codename": "RA"
+    }
+}

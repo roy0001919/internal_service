@@ -1,0 +1,374 @@
+@import "layout.scss";
+
+@page {
+    size: A4;
+    margin: 0;
+    page-break-inside: avoid; /* 若順著向下排列時會切開此元素，則直接換頁 */
+    page-break-after: always; /* 碰到此元素會直接換頁 */
+}
+
+
+
+@media print {
+    .page {
+        position: relative;
+        height: 100%;
+        width: 100%;
+        transform: translateY(0);
+    }
+    .noPrint {
+        display: none;
+    }
+    .coform_view {
+        padding: .5cm;
+        box-sizing: border-box;
+        transform: scale(0.95);
+        .noPrint {
+            display: none;
+        }
+
+        .col-lg-6 {
+            width: 50%;
+        }
+        
+        .viewText:not(input) {
+            display: inline-block;
+            min-width: 1.5cm;
+        }
+        .viewText#View_last3 {
+            display: inline-block;
+            min-width: 1cm;
+            max-width: 1cm;
+            margin-right: -1cm;
+            h4 {
+                width: 100%;
+            }
+        }
+        .bank {
+            margin-left: -.7cm;
+        }
+        #View_PhoneLight_1, #View_PhoneNight_1 {
+            display: inline-block;
+            width: .5cm;
+        }
+        #einvoice {
+            margin-top: 0cm;
+            margin-left: -.5cm;
+        }
+        #View_Card_3in1 {
+            float: left;
+        }
+        #InvoiceType {
+            width: 15cm;
+        }
+        .col-sm-offset-1 {
+            margin-left: 1.3cm;
+        }
+        .emptySpan {
+            display: inline-block;
+            width: 200px;
+            // border-bottom: solid 1px black;
+        }
+        // h4.auth_date {
+        //     margin-left: 5cm;
+        // }
+        h4.usCode {
+            margin-left: 1cm;
+        }
+    }
+    .row {
+        display: flex;
+        width: 100%;
+        margin: 0;
+        position: relative;
+        .col-lg-4 {
+            width: 7cm;
+        }
+        .vatNum {
+            margin-left: 16%;
+        }
+        .print_date {
+            position: relative;
+            left: 0;
+            display: flex;
+            flex-direction: column;
+            &_inside {
+                margin-top: 1rem;
+            }
+        }
+    }
+    section.coform .coform_view .container .precautions {
+        h5 {
+            font-size: 12px;
+            line-height: 18px;
+        }
+    }
+
+    section.coform .coform_view .container .logo {
+        width: 3cm;
+        display: inline-block;
+    }
+
+    .col-lg-7.col-md-7.col-sm-7 {
+        width: 8cm;
+    }
+    
+    section.coform .coform_view .container .sign_box .sign_main .sign_main_r {
+        padding: 10px;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        width: 4cm;
+    }
+
+    section.coform .coform_view .container header .text_u {
+        display: inline-block;
+        font-size: 26px;
+        text-decoration: underline;
+        font-weight: bolder;
+        margin-bottom: 10px;
+    }
+    section.coform .coform_view .container header .title {
+        margin-left: -1.25cm;
+    }
+
+    section.coform .coform_view #View_order_id {
+        width: 4.25cm;
+        margin-right: -1cm;
+    }
+    section.coform .coform_view .container .importantText h4, section.coform .coform_view .container .finalSign h4 {
+        width: 8.5cm;
+    }
+
+    .coform_view input[type="checkbox"]:after {
+        border: 1px solid black;
+        background-color: #fff;
+        display: none;
+    }
+
+    .coform_view input[type="checkbox"]:checked:after {
+        content: '';
+        display: none;
+    }
+
+    .coform_view input[type="radio"] {
+        margin: 0;
+        margin-right: 5px;
+    }
+
+    .coform_view .float_l {
+        float: left;
+    }
+
+    .coform_view h4 {
+        font-size: 14px;
+        font-weight: bolder;
+        float: left;
+        margin: auto 5px 5px 0;
+    }
+
+    .coform_view .container {
+        transform: scale(0.95) translateY(5%);
+        padding: 0;
+        width: 102%;
+        height: 105%;
+        overflow: hidden;
+    }
+
+    .coform_view .container .row {
+        margin: 0;
+        margin-bottom: 10px;
+    }
+
+    .coform_view .container .star,
+    .coform_view .container #star1,
+    .coform_view .container #star2,
+    .coform_view .container #star3 {
+        float: left;
+        width: 12px;
+        font-size: 16px;
+        color: #e80e2b;
+    }
+
+    .coform_view .container .einvoice_item {
+        display: inline-block;
+    }
+
+    .coform_view .container .precautions {
+        width: 95%;
+        margin: 10px auto 0;
+    }
+
+    .coform_view .container .precautions h5 {
+        margin: 0 auto;
+        line-height: 20px;
+        text-align: justify;
+    }
+
+    .coform_view .container .storeDetail {
+        margin: 10px auto;
+        width: 95%;
+        
+        h4, h5 {
+            margin: 0;
+        }
+    }
+
+    .coform_view .container header {
+        margin-bottom: 25px;
+    }
+
+    .coform_view .container header .col-lg-7,
+    .coform_view .container header .col-md-7 {
+        width: 55%;
+        margin-left: 15px;
+        padding-right: 0;
+    }
+
+    .coform_view .container header .col-lg-7 .title,
+    .coform_view .container header .col-md-7 .title {
+        text-align: center;
+    }
+
+    .coform_view .container header .text_u {
+        display: inline-block;
+        font-size: 30px;
+        text-decoration: underline;
+        font-weight: bolder;
+        margin-bottom: 10px;
+    }
+
+    .coform_view .container header .row {
+        margin-bottom: 25px;
+    }
+
+    .coform_view .container header .col-lg-3,
+    .coform_view .container header .col-md-3,
+    .coform_view .container header .col-sm-3 {
+        padding-right: 0;
+    }
+
+    .coform_view .container header .col-lg-3 select,
+    .coform_view .container header .col-md-3 select,
+    .coform_view .container header .col-sm-3 select {
+        width: 100%;
+    }
+
+    .coform_view .container .logo {
+        width: 135px;
+        display: inline-block;
+    }
+
+    .coform_view .container .logo img {
+        width: 100%;
+    }
+
+    .coform_view .container .sign_box {
+        width: 95%;
+        height: 30%;
+        max-height: 300px;
+        margin: 15px auto;
+        border: 1px solid #000;
+        padding: 10px;
+        overflow: hidden;
+        /* table rwd start */
+    }
+
+    .coform_view .container .sign_box .sign_main {
+        width: 100%;
+    }
+
+    .coform_view .container .sign_box .sign_main .col-lg-8.col-md-8 {
+        width: 15.5cm;
+    }
+
+    .coform_view .container .sign_box .sign_main .sign_main_r {
+        padding: 10px;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        min-height: 50px;
+    }
+
+    .coform_view .container .sign_box .sign_main_l {
+        margin: 0 10px 0 0;
+        h3 {
+            width: 4.5cm;
+        }
+    }
+
+    .coform_view .container .sign_box .sign_main_r {
+        border: 1px solid #000;
+        width: 90%;
+        height: 150px;
+        margin: 0 auto;
+    }
+
+    .coform_view .container .sign_box .sign_main h3 {
+        word-break: break-all;
+    }
+
+    .coform_view .container .sign_box .sign_main h3 small {
+        font-size: 12px;
+    }
+
+    .coform_view .container .sign_box table {
+        width: 98%;
+        margin: 10px auto;
+        border-collapse: collapse;
+    }
+
+    .coform_view .container .sign_box tr:nth-of-type(odd) {
+        background: none;
+    }
+
+    .coform_view .container .sign_box th {
+        width: 33.333%;
+        background: none;
+        text-align: center;
+    }
+
+    .coform_view .container .sign_box td,
+    .coform_view .container .sign_box th {
+        padding: 6px;
+        border: 1px solid #000;
+        height: 24px;
+    }
+
+    .coform_view .container .store {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+        flex-direction: column;
+    }
+
+    .coform_view .container .store .store_id {
+        font-size: 16px;
+    }
+
+    .coform_view .container .importantText,
+    section.coform .coform_view .container .finalSign {
+        margin: 15px auto;
+    }
+
+    .coform_view .container .importantText h4,
+    section.coform .coform_view .container .finalSign h4 {
+        margin-left: 5px;
+    }
+
+    .coform_view .container .precautions {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+        flex-direction: column;
+    }
+
+    .coform_view .container .importantText,
+    section.coform .coform_view .container .precautions h4 {
+        font-size: 16px;
+    }
+}

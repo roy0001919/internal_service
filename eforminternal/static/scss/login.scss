@@ -1,0 +1,92 @@
+@import 'layout.scss';
+
+.login {
+    height: 100vh;
+    overflow: hidden;
+    margin-top: 0;
+    display: flex;
+
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    &_logo_block {
+        width: 100%;
+        height: auto;
+        background-color: #fff;
+        padding: 50px 20px;
+        text-align: center;
+        z-index: 2;
+        img {
+            max-width: 200px;
+        }
+    }
+}
+
+.login form {
+    text-align: center;
+    width: 200px;
+    z-index: 2;
+
+    label {
+        display: none;
+    }
+    
+
+    input[type='text'], input[type='password'] {
+        width: 100%;
+        border: none;
+        border-bottom: 1px solid #fff;
+        background-color: transparent;
+        margin-top: 20px;
+        color: white;
+        font-size: 16px;
+        padding: 5px 0;
+        &:focus {
+            border: none;
+            outline: none;
+            border-bottom: 1px solid $color_yellow;
+        }
+    }
+
+    input[type='submit'] {
+        width: 100%;
+        padding: 10px 20px;
+        box-sizing: border-box;
+        margin-top: 15px;
+        background-color: $color_yellow;
+        outline: none;
+        border: none;
+        cursor: pointer;
+        font-weight: bold;
+        font-size: 16px;
+        border-radius: $btnRadius;
+        transition: 0.5s;
+        &:hover {
+            filter: brightness(110%);
+        }
+    }
+    
+    input:-webkit-autofill{
+        -webkit-box-shadow: 0 0 0px 100px $color_lightBrown inset; 
+    }
+
+    ::placeholder { 
+        color: #fff;
+        opacity: 0.8;
+    }
+      
+    ::-webkit-input-placeholder { 
+        color: #fff;
+        opacity: 0.8;
+    }
+    
+    :-ms-input-placeholder {
+        color: #fff;
+        opacity: 0.8;
+    }
+    
+    ::-moz-placeholder { 
+        color: #fff;
+        opacity: 0.8;
+    }
+}

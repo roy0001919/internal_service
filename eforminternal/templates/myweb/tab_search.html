@@ -1,0 +1,202 @@
+{% extends "myweb/base.html" %}
+
+{% block content %}
+{% load static %}
+<head>
+    <link rel="stylesheet" href="{% static 'css/reference/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/reference/fontawesome/css/all.css' %}">
+    <link rel="stylesheet" href="{% static 'css/search.css' %}">
+</head>
+<section class="page search" id="Search">
+    <div class="block result" id="search_daily">
+        <table>
+            <thead>
+                <tr>
+                    <th id="operation">操作</th>
+                    <th id="item_num">單號</th>
+                    <th id="store_id">分店代號</th>
+                    <th id="store_name">分店名稱</th>
+                    <th id="r_date">記錄日期</th>
+                    <th id="on_duty">上班人數</th>
+                    <th id="on_duty_name">出勤人員</th>
+                    <th id="r_id">紀錄工號</th>
+                    <th id="r_name">紀錄姓名</th>
+                    <th id="datetimestamp">紀錄時間</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td headers="operation">
+                        <div class="button">刪除</div>
+                    </td>
+                    <td headers="item_num">CA20210123111820</td>
+                    <td headers="store_id">CA</td>
+                    <td headers="store_name">南京店</td>
+                    <td headers="r_date">2021-01-23</td>
+                    <td headers="on_duty">9.5</td>
+                    <td headers="on_duty_name">珮 惠 真 足 慧 緒0.5 詩 店 敏經 芳店</td>
+                    <td headers="r_id">S18030</td>
+                    <td headers="r_name">許以琳</td>
+                    <td headers="datetimestamp">2021-01-23</td>
+                </tr>
+                <tr>
+                    <td headers="operation">操作</td>
+                    <td headers="item_num">CA20210123111820</td>
+                    <td headers="store_id">CA</td>
+                    <td headers="store_name">南京店</td>
+                    <td headers="r_date">2021-01-23</td>
+                    <td headers="on_duty">9.5</td>
+                    <td headers="on_duty_name">珮 惠 真 足 慧 緒0.5 詩 店 敏經 芳店</td>
+                    <td headers="r_id">S18030</td>
+                    <td headers="r_name">許以琳</td>
+                    <td headers="datetimestamp">2021-01-23</td>
+                </tr>
+                <tr>
+                    <td headers="operation">操作</td>
+                    <td headers="item_num">CA20210123111820</td>
+                    <td headers="store_id">CA</td>
+                    <td headers="store_name">南京店</td>
+                    <td headers="r_date">2021-01-23</td>
+                    <td headers="on_duty">9.5</td>
+                    <td headers="on_duty_name">珮 惠 真 足 慧 緒0.5 詩 店 敏經 芳店</td>
+                    <td headers="r_id">S18030</td>
+                    <td headers="r_name">許以琳</td>
+                    <td headers="datetimestamp">2021-01-23</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="buttons">
+            <button class="button" id="Export">匯出 Excel</button>
+        </div>
+    </div>
+
+    <div class="block result" id="search_coform">
+        <div class="tableBlock">
+            <table>
+                <thead>
+                    <tr>
+                        <th id="status">狀態</th>
+                        <th id="order_id">郵購單號</th>
+                        <th id="store_name">分店名稱</th>
+                        <th id="r_id">紀錄工號</th>
+                        <th id="r_name">紀錄姓名</th>
+                        <th id="auth_code">授權碼</th>
+                        <th id="auth_date">授權日</th>
+                        <th id="req_date">請款日</th>
+                        <th id="bank_req_date">銀行請款日</th>
+                        <th id="card_holder">持卡人姓名</th>
+                        <th id="cust_name">會員姓名</th>
+                        <th id="cust_id">會員編號</th>
+                        <th id="card_num">信用卡卡號</th>
+                        <th id="last3">卡片末三碼</th>
+                        <th id="bank">銀行名稱</th>
+                        <th id="card_exp">信用卡有效期限</th>
+                        <th id="payway">付款方式</th>
+                        <th id="amount">總金額</th>
+                        <th id="mod_date">修改日期</th>
+                        <th id="mod_r_id">修改工號</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td headers="status">
+                            <div class="selectBox">
+                                <i class="fas fa-angle-down"></i>
+                                <select class="current_status" name="current_status">
+                                    <option value="已請款">已請款</option>
+                                    <option value="未請款">未請款</option>
+                                    <option value="作廢">作廢</option>
+                                    <option value="退款">退款</option>
+                                </select>
+                            </div>
+                        </td>
+                        <td headers="order_id">CA-20200615041611</td>
+                        <td headers="store_name">南京店</td>
+                        <td headers="r_id">S55140</td>
+                        <td headers="r_name">賓雪玉</td>
+                        <td headers="auth_code">779402</td>
+                        <td headers="auth_date">2020-05-17</td>
+                        <td headers="req_date">2020-05-28</td>
+                        <td headers="bank_req_date">2020-05-28</td>
+                        <td headers="card_holder">小明</td>
+                        <td headers="cust_name">小明</td>
+                        <td headers="cust_id">ST003221</td>
+                        <td headers="card_num">1234123412341234</td>
+                        <td headers="last3">None</td>
+                        <td headers="bank">000</td>
+                        <td headers="card_exp">11-2023</td>
+                        <td headers="payway">pay_auth</td>
+                        <td headers="amount">3500</td>
+                        <td headers="mod_date">2020-09-01</td>
+                        <td headers="mod_r_id">S18030</td>
+                    </tr>
+                    
+                </tbody>
+            </table>
+        </div>
+
+        <div class="buttons">
+            <button class="button" id="Save">儲存更新</button>
+            <button class="button" id="Export">匯出 Excel</button>
+        </div>
+    </div>
+
+    <div class="block result" id="search_cashpymt">
+        <div class="tableBlock">
+            <table>
+                <thead>
+                    <tr>
+                        <th id="operation">操作</th>
+                        <th id="cashPymt_id">匯款單號</th>
+                        <th id="store_id">分店編號</th>
+                        <th id="store_name">分店名稱</th>
+                        <th id="cust_id">會員編號</th>
+                        <th id="cust_name">會員姓名</th>
+                        <th id="data_src_date">付款單日期</th>
+                        <th id="pymt_order_id">付款單號</th>
+                        <th id="pymt_order_seq">付款單明細</th>
+                        <th id="pymt_amt">付款金額</th>
+                        <th id="deposit_date">匯款日期</th>
+                        <th id="r_id">匯款人工號</th>
+                        <th id="r_name">匯款人名稱</th>
+                        <th id="data_dttm">資料時間</th>
+                     </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td headers="operation">
+                            <div class="button">刪除</div>
+                        </td>
+                        <td headers="cashPymt_id">CA-20200617112703</td>
+                        <td headers="store_id">CA</td>
+                        <td headers="store_name">南京店</td>
+                        <td headers="cust_id">ST058426</td>
+                        <td headers="cust_name">小明</td>
+                        <td headers="data_src_date">2020-01-31</td>
+                        <td headers="pymt_order_id">00002020013100000011</td>
+                        <td headers="pymt_order_seq">00002020013100000010</td>
+                        <td headers="pymt_amt">999</td>
+                        <td headers="deposit_date">2020-04-17</td>
+                        <td headers="r_id">S62180</td>
+                        <td headers="r_name">鍾昱帆</td>
+                        <td headers="data_dttm">2020-06-17 11:51:25</td>
+                     </tr>
+                    
+                </tbody>
+            </table>
+        </div>
+
+        <div class="buttons">
+            <button class="button" id="Export">匯出 Excel</button>
+        </div>
+    </div>
+
+</section>
+
+<script src="{% static 'js/reference/jquery.js' %}"></script>
+<script src="{% static 'js/api.js' %}"></script>
+<script src="{% static 'js/main.js' %}"></script>
+
+
+{% endblock %}

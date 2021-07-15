@@ -1,0 +1,82 @@
+{% extends "myweb/base.html" %}
+
+{% block content %}
+{% load static %}
+<head>
+    <link rel="stylesheet" href="{% static 'css/reference/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/reference/fontawesome/css/all.css' %}">
+    <link rel="stylesheet" href="{% static 'css/daily.css' %}">
+</head>
+<section class="daily page" id="Daily">
+    <div class="block">
+        <h1 class="title" id="daily_title" data-num={{ item_num }}>每日必填</h1>
+        <p class="title_signNumber" id="item_num"></p>
+        <form class="block_form" method="POST">
+            <div class="block_form_item">
+                <div class="block_form_item_title">
+                    分店名稱
+                    <span class="required">*</span>
+                </div>
+                <div class="selectBox">
+                    <i class="fas fa-angle-down"></i>
+                    <select name="unit" id="store_id" class="block_form_item_select storeList" required>
+                    </select>
+                </div>
+                
+            </div>
+            <div  class="block_form_item" >
+                <div class="block_form_item_title">
+                    日期
+                </div>
+                <input name="input_date" id="r_date" type="text" class="block_form_item_input form_today readonly" required readonly>
+            </div>
+            <div class="block_form_item">
+                <div class="block_form_item_title">
+                    上班人數
+                    <span class="required">*</span>
+                </div>
+                <input name="onduty" id="on_duty" type="tel" class="block_form_item_input" required>
+            </div>
+            <div class="block_form_item">
+                <div class="block_form_item_title">
+                    出勤人員名單
+                    <span class="required">*</span>
+                </div>
+                <input name="onduty2" id="on_duty_name" type="text" class="block_form_item_input" required>
+            </div>
+            <div class="buttons">
+                <button class="button" id="Submit">送出</button>
+                <div class="button" id="Search" data-type="false">查詢前 10 筆資料</div>
+            </div>
+            {% csrf_token %}
+        </form>
+    </div>
+     <div id="dailyList" style="display: none;">
+        <div class="list_title">最近 10 筆資料</div>
+        <div class="outerLoading" >
+            <div class="loading"></div>
+        </div>
+        <div class="list_main"></div>
+    </div>
+</section>
+
+<div id="alert">
+    <div class="alertBg"></div>
+    <div class="alertmain">
+        <svg width="100" height="100" class="icon">
+            <circle cx="50" cy="50" r="45" class="circle" />
+            <polyline fill="none" stroke="#fff" stroke-width="10" points="30,55 45,70 70,35" stroke-linecap="round" stroke-linejoin="round" class="tick" />
+            <g class="fork">
+                <polyline fill="none" stroke="#fff" stroke-width="10" points="35,65 65,35" stroke-linecap="round" />
+                <polyline fill="none" stroke="#fff" stroke-width="10" points="35,35 65,65" stroke-linecap="round" />
+            </g>
+        </svg>
+        <h3>已送出!</h3>
+    </div>
+</div>
+
+<script src="{% static 'js/reference/jquery.js' %}"></script>
+<script src="{% static 'js/api.js' %}"></script>
+<script src="{% static 'js/main.js' %}"></script>
+
+{% endblock %}

@@ -1,0 +1,215 @@
+{% extends "myweb/base.html" %}
+
+{% block content %}
+{% load static %}
+<head>
+    <link rel="stylesheet" href="{% static 'css/reference/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/reference/fontawesome/css/all.css' %}">
+    <link rel="stylesheet" href="{% static 'css/search.css' %}">
+</head>
+<section class="page search" id="Search">
+
+    <header class="pageNavBar">
+        <!-- <a href="{% url "eform:daily" %}">
+            <div class="pageNavBar_item button" data-id="search_daily">每日必填</div>
+        </a> -->
+        <a href="{% url "eform:mailOrder" %}">
+            <div class="pageNavBar_item button" data-id="search_coform" data-name="mailorder">郵購單</div>
+        </a>
+        <a href="{% url "eform:cashPymt" %}">
+            <div class="pageNavBar_item button active" data-id="search_cashpymt" data-name="cashpymt">現金匯款單</div>
+        </a>
+    </header>
+    <div class="block condition_block">
+        <h1 class="title">請選擇搜尋條件</h1>
+        <form class="search_cashpymt search_main" method="POST">
+
+            <label class="search_item">
+                <input type="checkbox" name="selection4" data-name="status" disabled="disabled" checked style="opacity: 0;">
+                <div class="search_item_main">
+                    <h4>付款單狀態</h4>
+                    <div class="search_item_main_value">
+                        <div class="selectBox">
+                            <i class="fas fa-angle-down"></i>
+                            <select id="Cashpymt_status" name="status" class="block_form_item_select checkedValueBox condition_value">
+                                <option value="已送出">已送出</option>
+                                <option value="未送出">未送出</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="search_item_bgc"></div>
+            </label>
+            <label class="search_item">
+                <input type="checkbox" name="selection1" class="condition" id="Cashpymt_store" data-name="store_name">
+                <div class="search_item_main">
+                    <h4>分店名稱</h4>
+                    <div class="search_item_main_value">
+                        <div class="selectBox">
+                            <i class="fas fa-angle-down"></i>
+                            <select name="store_name" class="block_form_item_select storeList checkedValueBox condition_value" disabled="disabled">
+                                <option value="CA">CA / 南京店</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="search_item_bgc"></div>
+            </label>
+            <label class="search_item search_item_date">
+                <input type="checkbox" name="selection3" class="condition" id="Cashpymt_getCashDate" data-name="data_src_date">
+                <div class="search_item_main">
+                    <h4>付款單日期</h4>
+                    <div class="dateBox">
+                        <div class="picker">
+                            <input type="date" name="data_src_date_from" class="datepicker checkedValueBox condition_value" disabled="disabled">
+                            <i class="far fa-calendar"></i>
+                        </div>
+                        -
+                        <div class="picker">
+                            <input type="date" name="data_src_date_to" class="datepicker checkedValueBox condition_value" disabled="disabled">
+                            <i class="far fa-calendar"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="search_item_bgc"></div>
+            </label>
+            <label class="search_item">
+                <input type="checkbox" name="selection4" class="condition" id="Cashpymt_clientName" data-name="cust_name">
+                <div class="search_item_main">
+                    <h4>會員姓名</h4>
+                    <div class="search_item_main_value">
+                        <input type="text" name="cust_name" class="block_form_item_input checkedValueBox condition_value" disabled="disabled">
+                    </div>
+                </div>
+                <div class="search_item_bgc"></div>
+            </label>
+
+            <div class="sendCondition">
+                <label class="search_item search_item_date">
+                    <input type="checkbox" name="selection2" class="condition" id="Cashpymt_getCodeDate" data-name="deposit_date">
+                    <div class="search_item_main">
+                        <h4>匯款日期</h4>
+                        <div class="dateBox">
+                            <div class="picker">
+                                <input type="date" name="deposit_date_from" class="datepicker checkedValueBox condition_value" disabled="disabled">
+                                <i class="far fa-calendar"></i>
+                            </div>
+                            -
+                            <div class="picker">
+                                <input type="date" name="deposit_date_to" class="datepicker checkedValueBox condition_value" disabled="disabled">
+                                <i class="far fa-calendar"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="search_item_bgc"></div>
+                </label>
+            </div>
+
+            <div class="notSendCondition" style="display: none;">
+                <label class="search_item search_item_date">
+                    <input type="checkbox" name="selection2" class="condition" data-name="pymt_date">
+                    <div class="search_item_main">
+                        <h4>付款日期</h4>
+                        <div class="dateBox">
+                            <div class="picker">
+                                <input type="date" name="pymt_date_from" class="datepicker checkedValueBox condition_value" disabled="disabled">
+                                <i class="far fa-calendar"></i>
+                            </div>
+                            -
+                            <div class="picker">
+                                <input type="date" name="pymt_date_to" class="datepicker checkedValueBox condition_value" disabled="disabled">
+                                <i class="far fa-calendar"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="search_item_bgc"></div>
+                </label>
+                <label class="search_item search_item_date">
+                    <input type="checkbox" name="selection2" class="condition refund_ind" data-name="refund_ind" disabled="disabled" checked style="opacity: 0;">
+                    <div class="search_item_main">
+                        <h4>匯款或退款</h4>
+                        <div class="search_item_main_value">
+                            <div class="selectBox">
+                                <i class="fas fa-angle-down"></i>
+                                <select id="Cashpymt_refund_ind" name="refund_ind" class="block_form_item_select checkedValueBox condition_value refund_ind" disabled="disabled">
+                                    <option value="0">匯款</option>
+                                    <option value="1">退款</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="search_item_bgc"></div>
+                </label>
+            </div>
+            
+            <p><input type="submit" class="button" value="查詢"></p>
+    {% csrf_token %}
+        </form>
+    </div>
+
+    <div class="block result" id="search_cashpymt" style="display: none;">
+        <div class="tableBlock">
+            <table>
+                <thead>
+                    <tr>
+                        <th id="operation">操作</th>
+                        <th id="cashPymt_id">匯款單號</th>
+                        <th id="store_id">分店編號</th>
+                        <th id="store_name">分店名稱</th>
+                        <th id="cust_id">會員編號</th>
+                        <th id="cust_name">會員姓名</th>
+                        <th id="data_src_date">付款單日期</th>
+                        <th id="pymt_order_id">付款單號</th>
+                        <th id="pymt_order_seq">付款單明細</th>
+                        <th id="pymt_amt">付款金額</th>
+                        <th id="deposit_date">匯款日期</th>
+                        <th id="r_id">匯款人工號</th>
+                        <th id="r_name">匯款人名稱</th>
+                        <th id="data_dttm">資料時間</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+
+        <div class="buttons">
+            <button class="button" id="Export">匯出 Excel</button>
+        </div>
+    </div>
+
+</section>
+
+<div id="alert">
+    <div class="alertBg"></div>
+    <div class="alertmain">
+        <svg width="100" height="100" class="icon">
+            <circle fill="#68E534" cx="50" cy="50" r="45" class="circle" />
+            <polyline fill="none" stroke="#fff" stroke-width="10" points="30,55 45,70 70,35" stroke-linecap="round" stroke-linejoin="round" class="tick" />
+            <g class="fork">
+                <polyline fill="none" stroke="#fff" stroke-width="10" points="35,65 65,35" stroke-linecap="round" />
+                <polyline fill="none" stroke="#fff" stroke-width="10" points="35,35 65,65" stroke-linecap="round" />
+            </g>
+        </svg>
+        <div class="question_main">
+            <h4>確定刪除此筆資料？</h4>
+            <div class="checkBtns">
+                <div class="button" data-type="true">確定</div>
+                <div class="button" data-type="false">取消</div>
+            </div>
+        </div>
+        <div class="loading"></div>
+        <h3>已送出!</h3>
+        <div class="errorBlock">
+            <h5 class="errorBlock_btn">查看更多 ▼</h5>
+            <span class="errorBlock_text"></span>
+        </div>
+    </div>
+</div>
+
+<script src="{% static 'js/reference/jquery.js' %}"></script>
+<script src="{% static 'js/reference/papaparse.min.js' %}"></script>
+<script src="{% static 'js/api.js' %}"></script>
+<script src="{% static 'js/main.js' %}"></script>
+
+
+{% endblock %}
