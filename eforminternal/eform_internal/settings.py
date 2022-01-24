@@ -89,7 +89,7 @@ WSGI_APPLICATION = 'eform_internal.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'internal_service',
+        'NAME': 'postgres',
         'USER': 'postgres',
         'PASSWORD': 'roy0001919',
         'HOST': '18.183.236.5',
