@@ -22,7 +22,7 @@ function getToken() {
 function getData({ url, success, data, error }) {
     let type = data ? 'post' : 'get';
     $.ajax({
-        url: 'http://192.168.1.46/api/' + url,
+        url: 'http://18.183.236.5/api/' + url,
         type: type,
         contentType: 'application/json; charset=UTF-8',
         data: JSON.stringify(data),
@@ -43,7 +43,7 @@ function getData({ url, success, data, error }) {
 }
 
 function postData(url, data) {
-    return fetch('http://192.168.1.46/api/' + url, {
+    return fetch('http://18.183.236.5/api/' + url, {
         body: JSON.stringify(data),
         method: 'POST',
         headers: {
@@ -63,7 +63,7 @@ function postData(url, data) {
 }
 
 function deleteCashpyData({id, success}) {
-    fetch('http://192.168.1.46/api/search/cashpymt/delete/' + id + '/cashPymtSearch', {
+    fetch('http://18.183.236.5/api/search/cashpymt/delete/' + id + '/cashPymtSearch', {
         method: 'delete'
     })
     .then(response =>
