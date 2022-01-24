@@ -21,6 +21,15 @@ services:
         expose:
             - 8080
 
+    postgres:
+        image: postgres:10
+        restart: always
+        environment:
+            - POSTGRES_USER=postgres
+            - POSTGRES_PASSWORD=roy0001919  # Change this password!
+        ports:
+            - "5432:5432"
+
     nginx:
         build: ./Nginx
         container_name: nginx
