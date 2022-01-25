@@ -14,10 +14,10 @@ from functools import wraps
 app = Flask(__name__)
 app.config.from_object(Config)
 app.config['DEBUG'] = True
-app.config['SQLALCHEMY_DATABASE_URI'] = ''
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:roy0001919@35.73.233.92/postgres'
 app.config['SQLALCHEMY_TRACK_MODIFICATION'] = True
 app.config['SQLALCHEMY_ECHO'] = True
-app.config['SECRET_KEY'] = ''
+app.config['SECRET_KEY'] = 'k%x9)k8&z3)yxbj=@-y!vvvx&gxns6bp&(7o_-@u5u+pr+nvpp'
 
 db.init_app(app)
 
