@@ -240,7 +240,7 @@ def cashPymt(request):
 
 
 def sched_createuser():
-    url = "http://18.183.236.5/api/authuser"
+    url = "http://35.73.233.92/api/authuser"
     data = {"jobstatus": "正式"}
     request = requests.post(url, json=data)
     result = (request.json())
@@ -261,7 +261,7 @@ def sched_createuser():
 
 
 def sched_removeuser():
-    url = "http://18.183.236.5/api/authuser"
+    url = "http://35.73.233.92/api/authuser"
     data = {"jobstatus": "離職"}
     request = requests.post(url, json=data)
     result = (request.json())
