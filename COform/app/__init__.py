@@ -8,6 +8,7 @@ from .dbmodels import models_bp
 from .dbmodels.models import db
 from . import urls
 from config import Config
+from flask_migrate import Migrate
 from functools import wraps
 # # DB initialisation
 # db=SQLAlchemy()
@@ -20,6 +21,7 @@ app.config['SQLALCHEMY_ECHO'] = True
 app.config['SECRET_KEY'] = 'k%x9)k8&z3)yxbj=@-y!vvvx&gxns6bp&(7o_-@u5u+pr+nvpp'
 
 db.init_app(app)
+migrate = Migrate(app, db)
 
 #set CORS
 CORS(app, resources={r"/*":{"origins":"*"}})
