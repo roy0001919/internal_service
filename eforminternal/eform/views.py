@@ -11,15 +11,17 @@ scheduler = BackgroundScheduler()
 
 @login_required
 def tab_coform(request):
+    if request.method == 'POST':
+        print("123")
+    else:
+        datetime_dt = datetime.today()  # 獲得當地時間
+        order_id = datetime_dt.strftime("%Y%m%d%H%M%S")  # 格式化日期
 
-    datetime_dt = datetime.today()  # 獲得當地時間
-    order_id = datetime_dt.strftime("%Y%m%d%H%M%S")  # 格式化日期
-
-    return render(
-        request,
-        'myweb/tab_coform.html',
-        {"order_id": order_id},
-    )
+        return render(
+            request,
+            'myweb/tab_coform.html',
+            {"order_id": order_id},
+        )
 
 @login_required
 def tab_daily(request):
