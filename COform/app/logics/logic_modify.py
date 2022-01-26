@@ -37,6 +37,9 @@ class Logic_Mod:
             modDict['auth_code'], modDict['auth_date'], modDict['req_date'], modDict['mod_r_id'],
             modDict['mod_date'], modDict['r_id'], modDict['r_name'], modDict['bank_req_date'],
             modDict['coform_id'])
+        print("error code")
+        print(DBoperator(MailOrder).customSQL(sql))
+        print("error code")
         return DBoperator(MailOrder).customSQL(sql)
         # return DBoperator(MailOrder_mods).insert(modDict)
 
