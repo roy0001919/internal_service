@@ -70,9 +70,7 @@ class Logic_coform():
         if None not in coDict_store.values():
             message="資料輸入: "+str(coDict_store)
             print(message)
-            sql = "UPDATE public.web_fin_mailorder SET auth_code={}, auth_date={}, req_date={}, mod_r_id={}, mod_date={}, r_id={}, r_name={}, bank_req_date={} WHERE coform_id={}".format(coDict_store['auth_code'],coDict_store['auth_date'],coDict_store['req_date'],coDict_store['mod_r_id'],coDict_store['mod_date'],coDict_store['r_id'],coDict_store['r_name'], coDict_store['bank_req_date'],coDict_store['coform_id'])
-            return DBoperator(MailOrder).customSQL(sql)
-            # return DBoperator(MailOrder_mods).insert(coDict_store)
+            return DBoperator(MailOrder_mods).insert(coDict_store)
         else:
             return "資料有誤: 請確認是否有空白值", 401
 
