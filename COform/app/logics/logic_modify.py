@@ -22,6 +22,10 @@ class Logic_Mod:
         if self.formValue('auth_code'):
             modDict['auth_code'] = self.formValue('auth_code')
         print("2")
+        if self.formValue('r_id'):
+            modDict['r_id'] = self.formValue('r_id')
+        if self.formValue('r_name'):
+            modDict['r_name'] = self.formValue('r_name')
         if self.formValue('auth_date'):
             modDict['auth_date'] = self.formValue('auth_date')
         if self.formValue('req_date'):
@@ -38,7 +42,7 @@ class Logic_Mod:
             if key != 'bank_req_date' and value is None:
                 return '資料填寫不全，請重新確認', 403
         print("2")
-        sql = "UPDATE public.web_fin_mailorder SET auth_code={}, auth_date={}, req_date={}, mod_r_id={}, mod_date={}, r_id={}, r_name={}, bank_req_date={} WHERE coform_id={}".format(modDict['auth_code'], modDict['auth_date'], modDict['req_date'], modDict['mod_r_id'],modDict['mod_date'], modDict['r_id'], modDict['r_name'], modDict['bank_req_date'],modDict['coform_id'])
+        sql = "UPDATE public.web_fin_mailorder SET auth_code={}, auth_date={}, req_date={}, mod_r_id={}, mod_date={}, r_id={}, r_name={}, bank_req_date={} WHERE coform_id={}".format(modDict['auth_code'], modDict['auth_date'], modDict['req_date'], modDict['mod_r_id'], modDict['mod_date'], modDict['r_id'], modDict['r_name'], modDict['bank_req_date'], modDict['coform_id'])
         print("error code")
         print(DBoperator(MailOrder).customSQL(sql))
         print("error code")
