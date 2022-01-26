@@ -70,7 +70,7 @@ class MailOrder(db.Model):
     mod_r_id = db.Column ('mod_r_id', db.String(6), nullable = False)
     mod_date = db.Column('mod_date', db.DateTime, nullable = False)
     status = db.Column('status', db.String(6), nullable=False)
-    order_id = db.Column('order_id', db.Integer, primary_key = True)
+    order_id = db.Column('order_id', db.String(50), primary_key = True)
     store_id = db.Column ('store_id', db.String(50), nullable = True)
     store_name = db.Column ('store_name', db.String(50), nullable = True)
     r_id = db.Column('r_id', db.String(50), nullable = True)
@@ -127,7 +127,7 @@ class MailOrder_mods(db.Model):
 class MailOrder_updated(db.Model):
     __tablename__ = 'web_fin_mailorder_updated'
 
-    order_id = db.Column('order_id', db.Integer, primary_key = True)
+    order_id = db.Column('order_id', db.String(50), primary_key = True)
     store_id = db.Column ('store_id', db.String(50), nullable = True)
     store_name = db.Column ('store_name', db.String(50), nullable = True)
     r_id = db.Column('r_id', db.String(50), nullable = True)
@@ -170,7 +170,7 @@ class MailOrder_updated(db.Model):
 class AuthCode(db.Model):
     __tablename__ = 'web_fin_authcode'
 
-    order_id = db.Column('order_id', db.Integer, primary_key = True)
+    order_id = db.Column('order_id', db.String(50), primary_key = True)
     store_id = db.Column ('store_id', db.String(50), nullable = True)
     store_name = db.Column ('store_name', db.String(50), nullable = True)
     r_id = db.Column('r_id', db.String(50), nullable = True)
