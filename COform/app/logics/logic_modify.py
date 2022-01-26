@@ -7,17 +7,21 @@ class Logic_Mod:
     
     def insert_COform(self):
         modDict = {}
+        print("1")
         if self.formValue('mod_id'):
             modDict['mod_id'] = self.formValue('mod_id')[0:-3]
             modDict['mod_id_seq'] = self.formValue('mod_id')
             print(modDict['mod_id'])
             print(modDict['mod_id_seq'])
+        print("2")
         if self.formValue('coform_id'):
             modDict['coform_id'] = self.formValue('coform_id')
         # if self.formValue('status'):
         modDict['status'] = "未請款"
+        print("1")
         if self.formValue('auth_code'):
             modDict['auth_code'] = self.formValue('auth_code')
+        print("2")
         if self.formValue('auth_date'):
             modDict['auth_date'] = self.formValue('auth_date')
         if self.formValue('req_date'):
@@ -28,11 +32,12 @@ class Logic_Mod:
             modDict['mod_r_id'] = self.formValue('mod_r_id')
         if self.formValue('mod_date'):
             modDict['mod_date'] = self.formValue('mod_date')
-
+        print("2")
         #test if modDict contains NoneType
         for key, value in modDict.items():
             if key != 'bank_req_date' and value is None:
                 return '資料填寫不全，請重新確認', 403
+        print("2")
         sql = "UPDATE public.web_fin_mailorder SET auth_code={}, auth_date={}, req_date={}, mod_r_id={}, mod_date={}, r_id={}, r_name={}, bank_req_date={} WHERE coform_id={}".format(
             modDict['auth_code'], modDict['auth_date'], modDict['req_date'], modDict['mod_r_id'],
             modDict['mod_date'], modDict['r_id'], modDict['r_name'], modDict['bank_req_date'],
